@@ -237,6 +237,31 @@ Public Class AllFunctionsMain
 
     Public Shared Sub mainFunction(mainForm As mainForm)
 
+
+        ' - controls behavior if unSession is blank and isLoginSession is false
+
+        If mainForm.unSession = String.Empty And mainForm.isLoginSession = False Then
+
+            mainForm.RoundedPictureBox1.Visible = False
+
+            mainForm.Text = "Midterm Project : Main"
+
+        Else
+
+            mainForm.Text = "Midterm Project : Main | Signed-in as: " & mainForm.unSession
+
+        End If
+
+
+        ' - sub 
+
+        mainForm.Label13.Text = mainForm.unSession
+
+        ' - ...
+
+
+        ' - fetch id and user image
+
         mainForm.connection.Open()
 
         Dim dt As New DataSet
@@ -279,19 +304,28 @@ Public Class AllFunctionsMain
 
         End Try
 
-        ' groupbox color
-        mainForm.GroupBox3.ForeColor = Color.FromArgb(192, 192, 194)
+        ' - ...
 
-        ' con for fetching items
+
+        ' - prerequisite for fetching and populating products :p
+
         dbconn()
+
         mainForm.Load_Items()
 
+        ' - ...
 
-        ' extras
 
-        mainForm.Text = "Midterm Project : Main"
 
-        mainForm.Label13.Text = "Logged-in as, " & Environment.NewLine & mainForm.unSession
+        ' - groupbox color
+
+        mainForm.GroupBox3.ForeColor = Color.FromArgb(192, 192, 194)
+
+        ' - ...
+
+
+
+        ' - extras
 
         mainForm.DataGridView1.DefaultCellStyle.ForeColor = Color.FromArgb(192, 192, 194)
 
@@ -301,16 +335,21 @@ Public Class AllFunctionsMain
 
         mainForm.DataGridView2.DefaultCellStyle.BackColor = Color.FromArgb(37, 34, 35)
 
+        mainForm.ToolTip1.SetToolTip(mainForm.btnHome, "Home")
+
+        mainForm.ToolTip1.SetToolTip(mainForm.btnStore, "Store")
+
+        mainForm.ToolTip1.SetToolTip(mainForm.btnAbout, "Abut us")
+
+        mainForm.ToolTip1.SetToolTip(mainForm.btnSettings, "Settings")
+
         If mainForm.RoundedPictureBox3.Image Is Nothing Then
 
             mainForm.btnPicture.Enabled = False
+
         End If
 
-        mainForm.ToolTip1.SetToolTip(mainForm.btnHome, "Home")
-        mainForm.ToolTip1.SetToolTip(mainForm.btnStore, "Store")
-        mainForm.ToolTip1.SetToolTip(mainForm.btnAbout, "Abut us")
-        mainForm.ToolTip1.SetToolTip(mainForm.btnSettings, "Settings")
-
+        ' - ...
 
     End Sub
 
