@@ -253,7 +253,7 @@ Partial Class mainForm
         btnHistory.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnHistory.FlatStyle = FlatStyle.Flat
         btnHistory.Image = My.Resources.Resources.icons8_time_machine_30
-        btnHistory.Location = New Point(907, -1)
+        btnHistory.Location = New Point(927, -1)
         btnHistory.Margin = New Padding(3, 2, 3, 2)
         btnHistory.Name = "btnHistory"
         btnHistory.Size = New Size(132, 74)
@@ -278,10 +278,11 @@ Partial Class mainForm
         ' 
         Label13.AutoSize = True
         Label13.Font = New Font("Segoe UI", 9.5F)
-        Label13.Location = New Point(109, 18)
+        Label13.Location = New Point(110, 27)
         Label13.Name = "Label13"
-        Label13.Size = New Size(0, 19)
+        Label13.Size = New Size(133, 19)
         Label13.TabIndex = 35
+        Label13.Text = "You're not signed-in"
         ' 
         ' btnHome
         ' 
@@ -289,7 +290,7 @@ Partial Class mainForm
         btnHome.BackColor = Color.FromArgb(CByte(199), CByte(54), CByte(89))
         btnHome.FlatStyle = FlatStyle.Flat
         btnHome.Image = My.Resources.Resources.icons8_home_30__2_
-        btnHome.Location = New Point(379, 0)
+        btnHome.Location = New Point(399, 0)
         btnHome.Margin = New Padding(3, 2, 3, 2)
         btnHome.Name = "btnHome"
         btnHome.Size = New Size(132, 73)
@@ -301,7 +302,7 @@ Partial Class mainForm
         btnStore.Anchor = AnchorStyles.Top
         btnStore.FlatStyle = FlatStyle.Flat
         btnStore.Image = My.Resources.Resources.icons8_bag_301
-        btnStore.Location = New Point(511, 0)
+        btnStore.Location = New Point(531, 0)
         btnStore.Margin = New Padding(3, 2, 3, 2)
         btnStore.Name = "btnStore"
         btnStore.Size = New Size(132, 73)
@@ -313,7 +314,7 @@ Partial Class mainForm
         btnAbout.Anchor = AnchorStyles.Top
         btnAbout.FlatStyle = FlatStyle.Flat
         btnAbout.Image = My.Resources.Resources.icons8_about_30
-        btnAbout.Location = New Point(643, 0)
+        btnAbout.Location = New Point(663, 0)
         btnAbout.Margin = New Padding(3, 2, 3, 2)
         btnAbout.Name = "btnAbout"
         btnAbout.Size = New Size(132, 73)
@@ -326,7 +327,7 @@ Partial Class mainForm
         btnSettings.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnSettings.FlatStyle = FlatStyle.Flat
         btnSettings.Image = My.Resources.Resources.icons8_setting_301
-        btnSettings.Location = New Point(775, 0)
+        btnSettings.Location = New Point(795, 0)
         btnSettings.Margin = New Padding(3, 2, 3, 2)
         btnSettings.Name = "btnSettings"
         btnSettings.Size = New Size(132, 74)
@@ -1005,6 +1006,7 @@ Partial Class mainForm
         ' 
         ' Label23
         ' 
+        Label23.Anchor = AnchorStyles.Top
         Label23.AutoSize = True
         Label23.Font = New Font("Segoe UI", 10.18868F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         Label23.Location = New Point(609, 45)
@@ -1015,6 +1017,7 @@ Partial Class mainForm
         ' 
         ' Label5
         ' 
+        Label5.Anchor = AnchorStyles.Top
         Label5.AutoSize = True
         Label5.Font = New Font("Segoe UI Semibold", 12.2264156F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label5.Location = New Point(632, 15)
@@ -1027,6 +1030,7 @@ Partial Class mainForm
         ' 
         DataGridView2.AllowUserToAddRows = False
         DataGridView2.AllowUserToDeleteRows = False
+        DataGridView2.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         DataGridView2.BackgroundColor = Color.FromArgb(CByte(37), CByte(34), CByte(35))
         DataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
         DataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -1054,7 +1058,7 @@ Partial Class mainForm
         Column8.MinimumWidth = 6
         Column8.Name = "Column8"
         Column8.ReadOnly = True
-        Column8.Width = 400
+        Column8.Width = 420
         ' 
         ' Column9
         ' 
@@ -1062,7 +1066,7 @@ Partial Class mainForm
         Column9.MinimumWidth = 6
         Column9.Name = "Column9"
         Column9.ReadOnly = True
-        Column9.Width = 400
+        Column9.Width = 420
         ' 
         ' mainForm
         ' 
