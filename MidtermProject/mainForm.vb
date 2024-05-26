@@ -9,18 +9,36 @@ Public Class mainForm
 
     Public orderIdByUser As Integer
 
-    Public connect As connectionToHeaven
+    Public cartIdByUser As Integer
 
-    Dim dt As DataSet
+    Public cartIdGenerated As String
 
-    Dim dr As MySqlDataReader
+    Public connect As New connectionToHeaven
+
+    Public con As MySqlConnection = Nothing
+
+
+    Public dt As DataSet
+
+    Public dr As MySqlDataReader
 
 
     'Draggable form property
     Private Property MoveForm As Boolean
     Private Property MoveForm_MousePosition As Point
 
+    Public cs As String = "Server=localhost;Port=3306;Database=alterdb;Uid=root;Pwd=;"
+
     Public connection As New MySqlConnection("server=localhost;port=;user id=root;password=;database=alterdb")
+
+
+    Function conChecker()
+
+        Dim dbConnection As New connectionToHeaven()
+
+        dbConnection.openConnection()
+
+    End Function
 
     Function subconnection(cmd As MySqlCommand) As Boolean
 
@@ -162,10 +180,21 @@ Public Class mainForm
 
     Private Sub mainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        '
+        conChecker()
+
+        ' order functttions
         AllFunctionsMain.orderIdExtractor(Me)
         AllFunctionsMain.retrieveOrders(Me)
+
+        ' mybase funcions
         AllFunctionsMain.mainFunction(Me)
+
+        ' session checker
         AllFunctionsMain.signChecker(Me)
+
+        ' cart functions
+        AllFunctionsMain.retrieveCart(Me)
 
     End Sub
 
@@ -265,7 +294,11 @@ Public Class mainForm
 
     End Sub
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs)
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        accountOption.ShowDialog()
+    End Sub
+
+    Private Sub btnAbout_Click(sender As Object, e As EventArgs) Handles btnAbout.Click
 
     End Sub
 End Class

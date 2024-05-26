@@ -30,6 +30,8 @@ Partial Class mainForm
         Label2 = New Label()
         FlowLayoutPanel1 = New FlowLayoutPanel()
         homePanel = New Panel()
+        LinkLabel1 = New LinkLabel()
+        Label1 = New Label()
         Label57 = New Label()
         Label44 = New Label()
         Panel4 = New Panel()
@@ -42,6 +44,7 @@ Partial Class mainForm
         btnSettings = New BorderlessButton()
         Panel3 = New Panel()
         panelCart = New Panel()
+        Label24 = New Label()
         DataGridView1 = New DataGridView()
         Column1 = New DataGridViewTextBoxColumn()
         Column2 = New DataGridViewTextBoxColumn()
@@ -105,6 +108,12 @@ Partial Class mainForm
         Column7 = New DataGridViewTextBoxColumn()
         Column8 = New DataGridViewTextBoxColumn()
         Column9 = New DataGridViewTextBoxColumn()
+        Column15 = New DataGridViewTextBoxColumn()
+        Column10 = New DataGridViewTextBoxColumn()
+        Column11 = New DataGridViewTextBoxColumn()
+        Column12 = New DataGridViewTextBoxColumn()
+        Column13 = New DataGridViewTextBoxColumn()
+        Column14 = New DataGridViewTextBoxColumn()
         ToolTip1 = New ToolTip(components)
         CType(RoundedPictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         storePanel.SuspendLayout()
@@ -193,6 +202,8 @@ Partial Class mainForm
         homePanel.BackColor = Color.FromArgb(CByte(37), CByte(34), CByte(35))
         homePanel.BackgroundImage = My.Resources.Resources.Untitled_design__9_
         homePanel.BackgroundImageLayout = ImageLayout.Zoom
+        homePanel.Controls.Add(LinkLabel1)
+        homePanel.Controls.Add(Label1)
         homePanel.Controls.Add(Label57)
         homePanel.Controls.Add(Label44)
         homePanel.Dock = DockStyle.Fill
@@ -204,12 +215,37 @@ Partial Class mainForm
         homePanel.Size = New Size(1418, 612)
         homePanel.TabIndex = 15
         ' 
+        ' LinkLabel1
+        ' 
+        LinkLabel1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom
+        LinkLabel1.AutoSize = True
+        LinkLabel1.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold)
+        LinkLabel1.LinkBehavior = LinkBehavior.HoverUnderline
+        LinkLabel1.LinkColor = Color.FromArgb(CByte(192), CByte(192), CByte(194))
+        LinkLabel1.Location = New Point(961, 431)
+        LinkLabel1.Name = "LinkLabel1"
+        LinkLabel1.Size = New Size(72, 25)
+        LinkLabel1.TabIndex = 34
+        LinkLabel1.TabStop = True
+        LinkLabel1.Text = "Sign-in"
+        ' 
+        ' Label1
+        ' 
+        Label1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Semibold", 13F, FontStyle.Bold)
+        Label1.Location = New Point(379, 428)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(576, 28)
+        Label1.TabIndex = 33
+        Label1.Text = "Looks like you're not signed-in yet, would like to sign-in first?"
+        ' 
         ' Label57
         ' 
         Label57.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom
         Label57.AutoSize = True
         Label57.Font = New Font("Segoe UI Semibold", 13F, FontStyle.Bold)
-        Label57.Location = New Point(481, 308)
+        Label57.Location = New Point(474, 261)
         Label57.Name = "Label57"
         Label57.Size = New Size(483, 28)
         Label57.TabIndex = 32
@@ -222,7 +258,7 @@ Partial Class mainForm
         Label44.BackColor = Color.Transparent
         Label44.Font = New Font("Segoe UI Semibold", 30F, FontStyle.Bold)
         Label44.ForeColor = SystemColors.Control
-        Label44.Location = New Point(526, 218)
+        Label44.Location = New Point(519, 171)
         Label44.Name = "Label44"
         Label44.Size = New Size(366, 61)
         Label44.TabIndex = 30
@@ -253,7 +289,7 @@ Partial Class mainForm
         btnHistory.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnHistory.FlatStyle = FlatStyle.Flat
         btnHistory.Image = My.Resources.Resources.icons8_time_machine_30
-        btnHistory.Location = New Point(927, -1)
+        btnHistory.Location = New Point(1286, 0)
         btnHistory.Margin = New Padding(3, 2, 3, 2)
         btnHistory.Name = "btnHistory"
         btnHistory.Size = New Size(132, 74)
@@ -267,11 +303,12 @@ Partial Class mainForm
         btnCart.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnCart.FlatStyle = FlatStyle.Flat
         btnCart.Image = My.Resources.Resources.icons8_fast_cart_30
-        btnCart.Location = New Point(1285, 0)
+        btnCart.Location = New Point(939, 0)
         btnCart.Margin = New Padding(3, 2, 3, 2)
         btnCart.Name = "btnCart"
         btnCart.Size = New Size(132, 73)
         btnCart.TabIndex = 34
+        ToolTip1.SetToolTip(btnCart, "My Cart")
         btnCart.UseVisualStyleBackColor = False
         ' 
         ' Label13
@@ -290,7 +327,7 @@ Partial Class mainForm
         btnHome.BackColor = Color.FromArgb(CByte(199), CByte(54), CByte(89))
         btnHome.FlatStyle = FlatStyle.Flat
         btnHome.Image = My.Resources.Resources.icons8_home_30__2_
-        btnHome.Location = New Point(399, 0)
+        btnHome.Location = New Point(411, 0)
         btnHome.Margin = New Padding(3, 2, 3, 2)
         btnHome.Name = "btnHome"
         btnHome.Size = New Size(132, 73)
@@ -300,26 +337,28 @@ Partial Class mainForm
         ' btnStore
         ' 
         btnStore.Anchor = AnchorStyles.Top
+        btnStore.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnStore.FlatStyle = FlatStyle.Flat
         btnStore.Image = My.Resources.Resources.icons8_bag_301
-        btnStore.Location = New Point(531, 0)
+        btnStore.Location = New Point(543, 0)
         btnStore.Margin = New Padding(3, 2, 3, 2)
         btnStore.Name = "btnStore"
         btnStore.Size = New Size(132, 73)
         btnStore.TabIndex = 34
-        btnStore.UseVisualStyleBackColor = True
+        btnStore.UseVisualStyleBackColor = False
         ' 
         ' btnAbout
         ' 
         btnAbout.Anchor = AnchorStyles.Top
+        btnAbout.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnAbout.FlatStyle = FlatStyle.Flat
         btnAbout.Image = My.Resources.Resources.icons8_about_30
-        btnAbout.Location = New Point(663, 0)
+        btnAbout.Location = New Point(675, 0)
         btnAbout.Margin = New Padding(3, 2, 3, 2)
         btnAbout.Name = "btnAbout"
         btnAbout.Size = New Size(132, 73)
         btnAbout.TabIndex = 35
-        btnAbout.UseVisualStyleBackColor = True
+        btnAbout.UseVisualStyleBackColor = False
         ' 
         ' btnSettings
         ' 
@@ -327,7 +366,7 @@ Partial Class mainForm
         btnSettings.BackColor = Color.FromArgb(CByte(47), CByte(43), CByte(44))
         btnSettings.FlatStyle = FlatStyle.Flat
         btnSettings.Image = My.Resources.Resources.icons8_setting_301
-        btnSettings.Location = New Point(795, 0)
+        btnSettings.Location = New Point(807, 0)
         btnSettings.Margin = New Padding(3, 2, 3, 2)
         btnSettings.Name = "btnSettings"
         btnSettings.Size = New Size(132, 74)
@@ -352,6 +391,7 @@ Partial Class mainForm
         ' panelCart
         ' 
         panelCart.BackColor = Color.FromArgb(CByte(37), CByte(34), CByte(35))
+        panelCart.Controls.Add(Label24)
         panelCart.Controls.Add(DataGridView1)
         panelCart.Controls.Add(Label4)
         panelCart.Controls.Add(Label3)
@@ -365,6 +405,15 @@ Partial Class mainForm
         panelCart.Name = "panelCart"
         panelCart.Size = New Size(1418, 612)
         panelCart.TabIndex = 16
+        ' 
+        ' Label24
+        ' 
+        Label24.AutoSize = True
+        Label24.Location = New Point(39, 15)
+        Label24.Name = "Label24"
+        Label24.Size = New Size(53, 17)
+        Label24.TabIndex = 34
+        Label24.Text = "Label24"
         ' 
         ' DataGridView1
         ' 
@@ -390,6 +439,7 @@ Partial Class mainForm
         Column1.MinimumWidth = 6
         Column1.Name = "Column1"
         Column1.ReadOnly = True
+        Column1.Visible = False
         Column1.Width = 30
         ' 
         ' Column2
@@ -1034,14 +1084,14 @@ Partial Class mainForm
         DataGridView2.BackgroundColor = Color.FromArgb(CByte(37), CByte(34), CByte(35))
         DataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
         DataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView2.Columns.AddRange(New DataGridViewColumn() {Column7, Column8, Column9})
+        DataGridView2.Columns.AddRange(New DataGridViewColumn() {Column7, Column8, Column9, Column15, Column10, Column11, Column12, Column13, Column14})
         DataGridView2.Location = New Point(38, 77)
         DataGridView2.Name = "DataGridView2"
         DataGridView2.ReadOnly = True
         DataGridView2.RowHeadersVisible = False
         DataGridView2.RowHeadersWidth = 45
         DataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DataGridView2.Size = New Size(1354, 502)
+        DataGridView2.Size = New Size(1347, 502)
         DataGridView2.TabIndex = 0
         ' 
         ' Column7
@@ -1050,7 +1100,7 @@ Partial Class mainForm
         Column7.MinimumWidth = 6
         Column7.Name = "Column7"
         Column7.ReadOnly = True
-        Column7.Width = 500
+        Column7.Width = 130
         ' 
         ' Column8
         ' 
@@ -1058,7 +1108,7 @@ Partial Class mainForm
         Column8.MinimumWidth = 6
         Column8.Name = "Column8"
         Column8.ReadOnly = True
-        Column8.Width = 420
+        Column8.Width = 140
         ' 
         ' Column9
         ' 
@@ -1066,7 +1116,55 @@ Partial Class mainForm
         Column9.MinimumWidth = 6
         Column9.Name = "Column9"
         Column9.ReadOnly = True
-        Column9.Width = 420
+        Column9.Width = 110
+        ' 
+        ' Column15
+        ' 
+        Column15.HeaderText = "Item name/model"
+        Column15.MinimumWidth = 6
+        Column15.Name = "Column15"
+        Column15.ReadOnly = True
+        Column15.Width = 210
+        ' 
+        ' Column10
+        ' 
+        Column10.HeaderText = "Order date"
+        Column10.MinimumWidth = 6
+        Column10.Name = "Column10"
+        Column10.ReadOnly = True
+        Column10.Width = 210
+        ' 
+        ' Column11
+        ' 
+        Column11.HeaderText = "Item Price"
+        Column11.MinimumWidth = 6
+        Column11.Name = "Column11"
+        Column11.ReadOnly = True
+        Column11.Width = 130
+        ' 
+        ' Column12
+        ' 
+        Column12.HeaderText = "Item quantity"
+        Column12.MinimumWidth = 6
+        Column12.Name = "Column12"
+        Column12.ReadOnly = True
+        Column12.Width = 130
+        ' 
+        ' Column13
+        ' 
+        Column13.HeaderText = "Item sub-total"
+        Column13.MinimumWidth = 6
+        Column13.Name = "Column13"
+        Column13.ReadOnly = True
+        Column13.Width = 140
+        ' 
+        ' Column14
+        ' 
+        Column14.HeaderText = "Item total"
+        Column14.MinimumWidth = 6
+        Column14.Name = "Column14"
+        Column14.ReadOnly = True
+        Column14.Width = 140
         ' 
         ' mainForm
         ' 
@@ -1131,12 +1229,6 @@ Partial Class mainForm
     Friend WithEvents Label57 As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Label2 As Label
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As DataGridViewTextBoxColumn
     Friend WithEvents txtSearchproduct As TextBox
     Friend WithEvents Label48 As Label
     Friend WithEvents Label47 As Label
@@ -1198,4 +1290,18 @@ Partial Class mainForm
     Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column8 As DataGridViewTextBoxColumn
     Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column10 As DataGridViewTextBoxColumn
+    Friend WithEvents Column11 As DataGridViewTextBoxColumn
+    Friend WithEvents Column12 As DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As DataGridViewTextBoxColumn
+    Friend WithEvents Column14 As DataGridViewTextBoxColumn
+    Friend WithEvents Column15 As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Label24 As Label
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class
