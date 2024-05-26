@@ -35,6 +35,9 @@ Partial Class checkoutItems
         Column4 = New DataGridViewTextBoxColumn()
         Column5 = New DataGridViewTextBoxColumn()
         Column6 = New DataGridViewTextBoxColumn()
+        Label3 = New Label()
+        Label4 = New Label()
+        Label5 = New Label()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -67,9 +70,9 @@ Partial Class checkoutItems
         Label2.Font = New Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.Location = New Point(22, 456)
         Label2.Name = "Label2"
-        Label2.Size = New Size(56, 19)
+        Label2.Size = New Size(92, 19)
         Label2.TabIndex = 3
-        Label2.Text = "TOTAL :"
+        Label2.Text = "Total Cost : ₱"
         ' 
         ' Button2
         ' 
@@ -152,12 +155,42 @@ Partial Class checkoutItems
         Column6.ReadOnly = True
         Column6.Width = 217
         ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Location = New Point(32, 22)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(46, 17)
+        Label3.TabIndex = 35
+        Label3.Text = "Label3"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Location = New Point(408, 22)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(46, 17)
+        Label4.TabIndex = 36
+        Label4.Text = "Label4"
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(110, 458)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(46, 17)
+        Label5.TabIndex = 37
+        Label5.Text = "Label5"
+        ' 
         ' checkoutItems
         ' 
         AutoScaleDimensions = New SizeF(7F, 17F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(37), CByte(34), CByte(35))
         ClientSize = New Size(1142, 497)
+        Controls.Add(Label5)
+        Controls.Add(Label4)
+        Controls.Add(Label3)
         Controls.Add(Label1)
         Controls.Add(DataGridView1)
         Controls.Add(Label2)
@@ -187,4 +220,7 @@ Partial Class checkoutItems
     Friend WithEvents Column4 As DataGridViewTextBoxColumn
     Friend WithEvents Column5 As DataGridViewTextBoxColumn
     Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
 End Class
