@@ -152,21 +152,24 @@ Public Class AllFunctionsMain
 
                     Dim exist As Boolean = False, numrow As Integer = 0, numtext As Integer
 
-                    For Each itm As DataGridViewRow In mainForm.DataGridView1.Rows
+                    For Each row As DataGridViewRow In mainForm.DataGridView1.Rows
 
-                        If itm.Cells(1).Value IsNot Nothing Then
+                        If row.Cells(1).Value IsNot Nothing Then
 
-                            If itm.Cells(1).Value.ToString = dr.Item("prd_code") Then
+                            If row.Cells(1).Value.ToString = dr.Item("prd_code") Then
 
                                 exist = True
 
-                                numrow = itm.Index
+                                numrow = row.Index
 
-                                numtext = CInt(itm.Cells(4).Value)
+                                numtext = CInt(row.Cells(4).Value)
 
-                                Exit For
                             End If
+
+                            Exit For
+
                         End If
+
                     Next
 
                     Dim stockCount As Integer = Convert.ToInt32(dr("prd_stock"))
@@ -197,9 +200,9 @@ Public Class AllFunctionsMain
 
                 End While
 
-            Catch ex As Exception
+            Catch ex As MySqlException
 
-                MsgBox(ex.Message)
+                MsgBox("Server is offline", ex.Message)
 
             End Try
 
@@ -213,25 +216,70 @@ Public Class AllFunctionsMain
 
             If (String.IsNullOrEmpty(mainForm.unSession)) Then
 
-                Dim response
-
-                response = MsgBox("Looks like you're not sign-in? Would you like to sign-in first?", MsgBoxStyle.Exclamation + vbYesNo, "Not sign-in")
-
-                If response = vbYes Then
-
-                    Form1.Show()
-
-                    mainForm.Hide()
-
-                Else
-
-                    ' ...
-
-                End If
+                accountOption.ShowDialog()
 
             End If
 
         End If
+
+        Try
+
+            mainForm.connect.openConnection()
+
+            For Each row As DataGridViewRow In mainForm.DataGridView1.Rows
+
+                If Not row.IsNewRow Then
+
+                    Dim cartid As String = mainForm.cartIdGenerated
+
+                    Dim itemcode As Integer = Convert.ToInt32(row.Cells("Column2").Value)
+
+                    Dim itemname As String = row.Cells("Column3").Value.ToString()
+
+                    Dim itemprice As Integer = Convert.ToInt32(row.Cells("Column4").Value)
+
+                    Dim itemqty As Integer = Convert.ToInt32(row.Cells("Column5").Value)
+
+                    Dim itemsubt As Integer = Convert.ToInt32(row.Cells("Column6").Value)
+
+                    Dim cartby As String = mainForm.unSession
+
+                    Dim sessionid As Integer = mainForm.cartIdByUser
+
+
+                    Dim cmd As New MySqlCommand("INSERT INTO `table_cart` (`cart_id`, `item_code`, `item_name`, `item_price`, `item_qty`, `item_subt`, `cart_by`, `id`) VALUES (@cartid, @itemcode, @itemname, @itemprice, @itemqty, @itemsubt, @cartby, @sessionid)", mainForm.connect.getConnection())
+
+                    cmd.Parameters.Add("@cartid", MySqlDbType.Int32).Value = cartid
+
+                    cmd.Parameters.Add("@itemcode", MySqlDbType.Int32).Value = itemcode
+
+                    cmd.Parameters.Add("@itemname", MySqlDbType.VarChar).Value = itemname
+
+                    cmd.Parameters.Add("@itemprice", MySqlDbType.Int32).Value = itemprice
+
+                    cmd.Parameters.Add("@itemqty", MySqlDbType.Int32).Value = itemqty
+
+                    cmd.Parameters.Add("@itemsubt", MySqlDbType.Int32).Value = itemsubt
+
+                    cmd.Parameters.Add("@cartby", MySqlDbType.Int32).Value = cartby
+
+                    cmd.Parameters.Add("@sessionid", MySqlDbType.Int32).Value = sessionid
+
+                    cmd.ExecuteNonQuery()
+
+                End If
+
+            Next
+
+        Catch ex As MySqlException
+
+            MessageBox.Show("An error occurred: " & ex.Message)
+
+        Finally
+
+            mainForm.connect.closeConnection()
+
+        End Try
 
     End Sub
 
@@ -244,11 +292,23 @@ Public Class AllFunctionsMain
 
             mainForm.RoundedPictureBox1.Visible = False
 
+            mainForm.btnHistory.Visible = False
+
             mainForm.Text = "Midterm Project : Main"
+
+            mainForm.Label1.Visible = True
+
+            mainForm.LinkLabel1.Visible = True
 
         Else
 
             mainForm.Text = "Midterm Project : Main | Signed-in as: " & mainForm.unSession
+
+            mainForm.btnHistory.Visible = True
+
+            mainForm.Label1.Visible = False
+
+            mainForm.LinkLabel1.Visible = False
 
         End If
 
@@ -278,7 +338,10 @@ Public Class AllFunctionsMain
 
             mainForm.myID.DataBindings.Add("text", dt, "altertable.id")
 
-            Dim cmd As New MySqlCommand("Select * FROM altertable WHERE username='" & username & "'", mainForm.connection)
+
+
+
+            Dim cmd As New MySqlCommand("SELECT * FROM altertable WHERE username='" & username & "'", mainForm.connection)
 
             Dim dr As MySqlDataReader
 
@@ -309,7 +372,7 @@ Public Class AllFunctionsMain
 
         ' - prerequisite for fetching and populating products :p
 
-        dbconn()
+        dikoalamto()
 
         mainForm.Load_Items()
 
@@ -356,19 +419,28 @@ Public Class AllFunctionsMain
     Public Shared Sub loader(mainForm As mainForm)
 
         mainForm.FlowLayoutPanel1.Controls.Clear()
+
         mainForm.FlowLayoutPanel1.AutoScroll = True
 
         Try
             conn.Open()
 
             cmd = New MySqlCommand("SELECT `prd_img`, `prd_code`, `prd_name`, `prd_model`, `prd_price`, `prd_stock` FROM `products`", conn)
+
             dr = cmd.ExecuteReader
+
             While dr.Read
+
                 mainForm.Load_Controls()
+
             End While
-        Catch ex As Exception
-            MsgBox(ex.Message)
+
+        Catch ex As MySqlException
+
+            MsgBox("Server is offline")
+
         End Try
+
         conn.Close()
 
 
@@ -446,10 +518,12 @@ Public Class AllFunctionsMain
                     For i As Integer = 0 To row.Cells.Count - 1
 
                         clonedRow.Cells(i).Value = row.Cells(i).Value
+
                     Next
 
 
                     checkoutItems.DataGridView1.Rows.Add(clonedRow)
+
                 End If
             Next
 
@@ -462,18 +536,28 @@ Public Class AllFunctionsMain
     Public Shared Sub textIdentifier(mainForm As mainForm)
 
         mainForm.FlowLayoutPanel1.Controls.Clear()
+
         mainForm.FlowLayoutPanel1.AutoScroll = True
 
         Try
             conn.Open()
+
             cmd = New MySqlCommand("SELECT prd_img, prd_code, prd_name, prd_model, prd_price, prd_stock FROM products WHERE prd_name LIKE '%" & mainForm.txtSearchproduct.Text & "%' or prd_model LIKE '%" & mainForm.txtSearchproduct.Text & "%'", conn)
+
             dr = cmd.ExecuteReader
+
             While dr.Read
+
                 mainForm.Load_Controls()
+
             End While
-        Catch ex As Exception
-            MsgBox(ex.Message)
+
+        Catch ex As MySqlException
+
+            MessageBox.Show("Error: Server is offline", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
         End Try
+
         conn.Close()
 
     End Sub
@@ -501,7 +585,7 @@ Public Class AllFunctionsMain
 
         Dim cs As String = "Server=localhost;Port=3306;Database=alterdb;Uid=root;Pwd=;"
 
-        Dim query As String = "SELECT order_id FROM altertable WHERE username=@username"
+        Dim query As String = "SELECT id FROM altertable WHERE username=@username"
 
         Dim username As String = mainForm.unSession
 
@@ -520,7 +604,11 @@ Public Class AllFunctionsMain
 
                         If rdr.Read() Then
 
-                            mainForm.orderIdByUser = rdr("order_id")
+                            mainForm.orderIdByUser = rdr("id")
+
+                            mainForm.cartIdByUser = rdr("id")
+
+                            checkoutItems.orderIdByUser = rdr("id")
 
                         End If
 
@@ -530,9 +618,11 @@ Public Class AllFunctionsMain
 
             End Using
 
-        Catch ex As Exception
+        Catch ex As MySqlException
 
-            MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MsgBox("Server is offline, can't retrieve id.", MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly, "No connection")
+
+            End
 
         End Try
 
@@ -540,9 +630,10 @@ Public Class AllFunctionsMain
 
     Public Shared Sub retrieveOrders(mainForm As mainForm)
 
+
         Dim cs As String = "Server=localhost;Port=3306;Database=alterdb;Uid=root;Pwd=;"
 
-        Dim baseid As String = mainForm.orderIdByUser
+        Dim baseid As Integer = mainForm.orderIdByUser
 
         Try
 
@@ -550,7 +641,8 @@ Public Class AllFunctionsMain
 
             con.Open()
 
-            Dim cmd As New MySqlCommand("SELECT orders.order_id, orders.item_code, users.username FROM alter_orders AS orders JOIN altertable AS users ON orders.order_id = users.order_id WHERE users.order_id LIKE @baseid", con)
+            Dim cmd As New MySqlCommand("SELECT orders.order_id, orders.item_code, users.username, orders.item_name, orders.order_date, orders.item_price, orders.item_qty," &
+                                        "orders.item_subt, orders.item_total FROM altertable AS users JOIN alter_orders AS orders ON users.id = orders.id WHERE orders.id Like @baseid;", con)
 
             cmd.Parameters.AddWithValue("@baseid", baseid)
 
@@ -560,18 +652,99 @@ Public Class AllFunctionsMain
 
             While (rdr.Read() = True)
 
-                mainForm.DataGridView2.Rows.Add(rdr(0), rdr(1), rdr(2))
+                mainForm.DataGridView2.Rows.Add(rdr(0), rdr(1), rdr(2), rdr(3), rdr(4), rdr(5), rdr(6), rdr(7), rdr(8))
 
             End While
 
             con.Close()
 
-        Catch ex As Exception
+        Catch ex As MySqlException
 
-            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MsgBox("Server is offline, can't retrieve orders.", MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly, "No connection")
 
         End Try
 
+
+    End Sub
+
+
+    ' DI PA TAPOS TANGINA :))
+    Public Shared Sub retrieveCart(mainForm As mainForm)
+
+        Dim cs As String = "Server=localhost;Port=3306;database=alterdb;uid=root;pwd=;"
+
+        Dim baseid1 As Integer = mainForm.cartIdByUser
+
+        Try
+
+            Dim con As New MySqlConnection(cs)
+
+            con.Open()
+
+            Dim cmd As New MySqlCommand("SELECT cart.cart_id, cart.item_code, cart.item_name, cart.item_price, cart.item_qty, cart.item_subt FROM altertable AS users JOIN table_cart AS cart ON users.id = cart.id WHERE cart.id LIKE @baseid1;", con) ' naka join dapat to
+
+            cmd.Parameters.AddWithValue("@baseid1", baseid1)
+
+            Dim rdr As MySqlDataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection)
+
+            mainForm.DataGridView2.Rows.Clear()
+
+            While (rdr.Read() = True)
+
+                mainForm.DataGridView1.Rows.Add(rdr(0), rdr(1), rdr(2), rdr(3), rdr(4), rdr(5))
+
+            End While
+
+            con.Close()
+
+        Catch ex As MySqlException
+
+            MessageBox.Show("Error: Server is offline", "Error 1", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
+    Public Shared Sub cartIdGenerator(mainForm As mainForm)
+
+        Try
+
+            Dim Num As Integer = 0
+
+            mainForm.con = New MySqlConnection(mainForm.cs)
+
+            mainForm.con.Open()
+
+            Dim sql As String = ("SELECT MAX(cart_id) FROM table_cart")
+
+            cmd = New MySqlCommand(sql)
+
+            cmd.Connection = checkoutItems.con
+
+            If (IsDBNull(cmd.ExecuteScalar)) Then
+
+                Num = 1011
+
+                mainForm.cartIdGenerated = Num.ToString
+
+            Else
+
+                Num = cmd.ExecuteScalar + 1
+
+                mainForm.cartIdGenerated = Num.ToString
+
+            End If
+
+            cmd.Dispose()
+
+            checkoutItems.con.Close()
+
+            checkoutItems.con.Dispose()
+
+        Catch ex As MySqlException
+
+            MessageBox.Show("Error: Server is offline", "Error 2", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
 
     End Sub
 End Class
