@@ -4,5 +4,5 @@
 
 * Out of your business *
 
-[!NOTE]
-This update include modification of functionalities across the project.
+> [!NOTE]
+> This update include modification of functionalities across the project.
