@@ -12,7 +12,7 @@ Public Class Form1
     Private Property MoveForm As Boolean
     Private Property MoveForm_MousePosition As Point
 
-    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, Panel1.MouseDown
+    Private Sub Form1_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
 
         If e.Button = MouseButtons.Left Then
 
@@ -24,7 +24,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Form1_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, Panel1.MouseUp
+    Private Sub Form1_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
 
         If e.Button = MouseButtons.Left Then
             MoveForm = False
@@ -33,7 +33,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Form1_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, Panel1.MouseMove
+    Private Sub Form1_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
 
         If MoveForm Then
 
@@ -64,9 +64,9 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Activated
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        txtUsername.Focus()
+        form1Functions.myBaseLoad(Me)
 
         Label3.Text = String.Empty
 
@@ -78,13 +78,6 @@ Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         form1Functions.submitLogin(Me)
-
-    End Sub
-
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-
-        Form2.Show()
-        Me.Hide()
 
     End Sub
 
@@ -118,11 +111,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub LinkLabel3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
-        WindowState = FormWindowState.Minimized
-    End Sub
-
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        End
+        Close()
     End Sub
 End Class

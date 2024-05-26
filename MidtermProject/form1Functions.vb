@@ -8,8 +8,6 @@ Public Class form1Functions
         Dim username = Form1.txtUsername.Text
         Dim password = Form1.txtPassword.Text
 
-        Form1.conString.getConnection.Open()
-
         Dim cmd As New MySqlCommand("SELECT `username`, `password`  FROM `altertable` WHERE `username` = @username AND `password` = @pass", Form1.conString.getConnection)
 
         If Form1.txtUsername.Text = String.Empty And Form1.txtPassword.Text = String.Empty Then
@@ -226,6 +224,12 @@ Public Class form1Functions
             End If
 
         End If
+
+    End Sub
+
+    Public Shared Sub myBaseLoad(Form1 As Form1)
+
+        Form1.txtUsername.Focus()
 
     End Sub
 End Class

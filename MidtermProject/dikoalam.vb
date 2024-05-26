@@ -1,6 +1,6 @@
 ﻿Imports MySqlConnector
 Imports System.IO
-Module dbconnection
+Module anobato
 
     Public conn As New MySqlConnection
     Dim result As Boolean
@@ -9,7 +9,7 @@ Module dbconnection
     Public da As MySqlDataAdapter
     Public i As Integer
 
-    Public Function dbconn() As Boolean
+    Public Function dikoalamto() As Boolean
         Try
             If conn.State = ConnectionState.Closed Then
                 conn.ConnectionString = "server=localhost;user id=root;password=;port=;database=alterdb"

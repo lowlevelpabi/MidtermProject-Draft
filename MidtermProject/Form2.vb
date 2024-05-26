@@ -111,11 +111,6 @@ Public Class Form2
 
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-        Form1.Show()
-        Me.Close()
-    End Sub
-
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
 
         If CheckBox1.CheckState = 1 Then
@@ -154,5 +149,9 @@ Public Class Form2
 
         form2Functions.submit(Me)
 
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs)
+        Close
     End Sub
 End Class

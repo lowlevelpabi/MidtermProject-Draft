@@ -156,12 +156,15 @@ Public Class updateCredMain
     Public Shared Sub submit(mainForm As mainForm)
 
         Dim con As New connectionToHeaven()
+
         Dim ms As New MemoryStream
 
         mainForm.RoundedPictureBox3.Image.Save(ms, mainForm.RoundedPictureBox3.Image.RawFormat)
 
         Dim update_command As New MySqlCommand("UPDATE `altertable` SET `usr_prf`=@profile WHERE `id` = @eID", con.getConnection())
+
         update_command.Parameters.Add("@eID", MySqlDbType.VarChar).Value = mainForm.myID.Text
+
         update_command.Parameters.Add("@profile", MySqlDbType.LongBlob).Value = ms.ToArray
 
         con.openConnection()
@@ -169,7 +172,9 @@ Public Class updateCredMain
         If update_command.ExecuteNonQuery() = 1 Then
 
             MsgBox("Image successfully saved", MsgBoxStyle.Information)
+
             con.closeConnection()
+
         End If
 
     End Sub

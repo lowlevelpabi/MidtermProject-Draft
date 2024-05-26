@@ -2,7 +2,7 @@
 
 Public Class connectionToHeaven
 
-    Private connection As New MySqlConnection("server=localhost;port=;Connection Timeout=30;user id=root;password=;database=alterdb")
+    Private connection As New MySqlConnection("server=localhost;port=;user id=root;password=;database=alterdb")
 
 
     ' return the connection
@@ -15,9 +15,22 @@ Public Class connectionToHeaven
     ' open the connection
     Sub openConnection()
 
-        If connection.State = ConnectionState.Closed Then
-            connection.Open()
-        End If
+        Try
+
+            If connection.State = ConnectionState.Closed Then
+
+                connection.Open()
+
+            End If
+
+        Catch ex As MySqlException
+
+            MsgBox("Connection to server cannot establish. Please re-open the application.", MsgBoxStyle.Critical + MsgBoxStyle.OkOnly, "Server is offline")
+
+            End
+
+        End Try
+
 
     End Sub
 

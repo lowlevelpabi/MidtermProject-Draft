@@ -6,9 +6,17 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySqlConnector
 Public Class checkoutItems
 
-    Dim connection As New MySqlConnection("server=localhost;port=;user id=root;password=;database=alterdb")
+    Public connection As New MySqlConnection("server=localhost;port=;user id=root;password=;database=alterdb")
 
-    Dim dt As New DataSet
+    Public orderIdByUser As String
+
+    Public generatedID As String
+
+    Public con As MySqlConnection = Nothing
+
+    Public cs As String = "Server=localhost;Port=3306;Database=alterdb;Uid=root;Pwd=;"
+
+
 
     'Draggable form propertys
     Private Property MoveForm As Boolean
@@ -81,6 +89,10 @@ Public Class checkoutItems
     End Sub
     Private Sub checkoutItems_Load(sender As Object, e As EventArgs) Handles MyBase.Load, MyBase.Activated
 
+        checkOutSaver.mainmemory(Me, mainForm)
+
+        checkOutSaver.orderIdGenerator(Me)
+
         mainForm.Enabled = True
 
         DataGridView1.DefaultCellStyle.BackColor = Color.FromArgb(37, 34, 35)
@@ -100,7 +112,7 @@ Public Class checkoutItems
 
         Next
 
-        Label2.Text = "Total Cost : ₱ " & total
+        Label5.Text = total
 
     End Sub
 
@@ -133,7 +145,6 @@ Public Class checkoutItems
 
                     Dim quantityToDeduct As Integer = CInt(row.Cells("Column5").Value)
 
-
                     cmd.Parameters("@id").Value = productId
 
                     cmd.Parameters("@quantity").Value = quantityToDeduct
@@ -156,8 +167,6 @@ Public Class checkoutItems
                 connection.Close()
 
             End Try
-
-
 
         Else
 

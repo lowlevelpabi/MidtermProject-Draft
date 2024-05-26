@@ -95,27 +95,21 @@ Public Class navBarCallMain
 
     Public Shared Sub btn6(mainForm As mainForm)
 
-        If mainForm.unSession = String.Empty And mainForm.isLoginSession = False Then
+        mainForm.historyPanel.BringToFront()
 
-            MsgBox("Sign-in first to view this page.", MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly, "Can't access")
+        mainForm.btnStore.BackColor = Color.FromArgb(47, 43, 44)
 
-        Else
+        mainForm.btnHome.BackColor = Color.FromArgb(47, 43, 44)
 
-            mainForm.historyPanel.BringToFront()
+        mainForm.btnAbout.BackColor = Color.FromArgb(47, 43, 44)
 
-            mainForm.btnStore.BackColor = Color.FromArgb(47, 43, 44)
+        mainForm.btnSettings.BackColor = Color.FromArgb(47, 43, 44)
 
-            mainForm.btnHome.BackColor = Color.FromArgb(47, 43, 44)
+        mainForm.btnCart.BackColor = Color.FromArgb(47, 43, 44)
 
-            mainForm.btnAbout.BackColor = Color.FromArgb(47, 43, 44)
+        mainForm.btnHistory.BackColor = Color.FromArgb(199, 54, 89)
 
-            mainForm.btnSettings.BackColor = Color.FromArgb(47, 43, 44)
-
-            mainForm.btnCart.BackColor = Color.FromArgb(47, 43, 44)
-
-            mainForm.btnHistory.BackColor = Color.FromArgb(199, 54, 89)
-
-        End If
+        AllFunctionsMain.retrieveOrders(mainForm)
 
     End Sub
 
